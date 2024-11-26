@@ -8,34 +8,49 @@
 </head>
 <body>
   <div class="container">
-    <h1>Encode/Decode Tool</h1>
+    <div class="logo">
+      <pre>
+-----------.        .-----------
+  ------    \  __  /    ------
+    -----    \(  )/    -----
+       ---   ' \/ `   ---
+         --- :    : ---
+           --`    '--
+           `/`/..\`\`
+        ====UU====UU====
+            '//||\\`
+              ''``
+      </pre>
+    </div>
+
+    <h1>🔑 Encode/Decode Tool 🛠️</h1>
+
     <form action="/process" method="POST">
       <label for="text">Text:</label>
-      <textarea id="text" name="text" required></textarea>
+      <textarea id="text" name="text" required placeholder="Enter text here..."></textarea>
       
-      <label for="type">Choose Type:</label>
-      <select id="type" name="type" required>
-        <option value="base64">Base64</option>
-        <option value="marshal">Marshal (JSON Placeholder)</option>
-      </select>
-
       <label for="action">Choose Action:</label>
       <select id="action" name="action" required>
-        <option value="encode">Encode</option>
-        <option value="decode">Decode</option>
+        <option value="encode">🔐 Encode</option>
+        <option value="decode">🔓 Decode</option>
+      </select>
+
+      <label for="type">Choose Encoding Type:</label>
+      <select id="type" name="type" required>
+        <option value="base64">Base64</option>
       </select>
 
       <button type="submit">Submit</button>
     </form>
 
     <div class="result" id="result-container" style="display:none;">
-      <h2>Result:</h2>
+      <h2>Result 📜:</h2>
       <textarea id="result" readonly></textarea>
-      <button onclick="copyToClipboard()">Copy to Clipboard</button>
+      <button onclick="copyToClipboard()">Copy to Clipboard 📋</button>
     </div>
 
     <div class="error" id="error-container" style="display:none;">
-      <h2>Error:</h2>
+      <h2>Error ❌:</h2>
       <p id="error-message"></p>
     </div>
   </div>
