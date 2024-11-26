@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const ejs = require('ejs');
+const path = require('path');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -11,12 +11,9 @@ app.use(express.static('public'));
 // Set up middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Set EJS as the view engine
-app.set('view engine', 'ejs');
-
-// Handle the homepage request
+// Serve the static index.html
 app.get('/', (req, res) => {
-  res.render('index', { result: null, error: null });
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // Handle form submission for encoding/decoding
@@ -39,9 +36,9 @@ app.post('/process', (req, res) => {
       }
     }
 
-    res.render('index', { result, error: null });
+    res.redirect(`/?result=${encodeURIComponent(result)}`);
   } catch (error) {
-    res.render('index', { result: null, error: error.message });
+    res.redirect(`/?error=${encodeURIComponent(error.message)}`);
   }
 });
 
