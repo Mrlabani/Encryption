@@ -1,44 +1,44 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const path = require('path');
-
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Serve static files (e.g., CSS)
+// Middleware
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(express.static('public'));
 
-// Set up middleware
-app.use(bodyParser.urlencoded({ extended: true }));
-
-// Serve the static index.html
+// Home route - serves the index.html
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(__dirname + '/index.html');
 });
 
-// Handle form submission for encoding/decoding
+// Process the form input
 app.post('/process', (req, res) => {
-  const { text, type, action } = req.body;
+  const { text, action, type } = req.body;
   let result;
 
-  try {
+  if (type === 'base64') {
     if (action === 'encode') {
-      if (type === 'base64') {
-        result = Buffer.from(text).toString('base64');
-      }
+      result = Buffer.from(text).toString('base64');
     } else if (action === 'decode') {
-      if (type === 'base64') {
+      try {
         result = Buffer.from(text, 'base64').toString('utf-8');
+      } catch (error) {
+        return res.redirect('/?error=Invalid Base64 Input');
       }
     }
+  }
 
-    res.redirect(`/?result=${encodeURIComponent(result)}`);
-  } catch (error) {
-    res.redirect(`/?error=${encodeURIComponent(error.message)}`);
+  // Redirect back with the result
+  if (result) {
+    return res.redirect(`/?result=${encodeURIComponent(result)}`);
+  } else {
+    return res.redirect('/?error=An unexpected error occurred.');
   }
 });
 
-// Start the server
+// Start server
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
