@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Encode/Decode Tool</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Encode/Decode Tool</h1>
+    <form action="/process" method="POST">
+      <label for="text">Text:</label>
+      <textarea id="text" name="text" required></textarea>
+      
+      <label for="type">Choose Type:</label>
+      <select id="type" name="type" required>
+        <option value="base64">Base64</option>
+        <option value="marshal">Marshal (JSON Placeholder)</option>
+      </select>
+
+      <label for="action">Choose Action:</label>
+      <select id="action" name="action" required>
+        <option value="encode">Encode</option>
+        <option value="decode">Decode</option>
+      </select>
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <div class="result" id="result-container" style="display:none;">
+      <h2>Result:</h2>
+      <textarea id="result" readonly></textarea>
+      <button onclick="copyToClipboard()">Copy to Clipboard</button>
+    </div>
+
+    <div class="error" id="error-container" style="display:none;">
+      <h2>Error:</h2>
+      <p id="error-message"></p>
+    </div>
+  </div>
+
+  <script>
+    function copyToClipboard() {
+      const resultText = document.getElementById('result');
+      resultText.select();
+      document.execCommand('copy');
+    }
+
+    // This script handles the result based on POST response
+    if (window.location.search) {
+      const urlParams = new URLSearchParams(window.location.search);
+      const result = urlParams.get('result');
+      const error = urlParams.get('error');
+
+      if (result) {
+        document.getElementById('result').value = result;
+        document.getElementById('result-container').style.display = 'block';
+      } else if (error) {
+        document.getElementById('error-message').innerText = error;
+        document.getElementById('error-container').style.display = 'block';
+      }
+    }
+  </script>
+</body>
+</html>
