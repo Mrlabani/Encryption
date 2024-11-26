@@ -25,23 +25,25 @@
 
     <h1>🔑 Encode/Decode Tool 🛠️</h1>
 
-    <form action="/process" method="POST">
-      <label for="text">Text:</label>
-      <textarea id="text" name="text" required placeholder="Enter text here..."></textarea>
-      
-      <label for="action">Choose Action:</label>
-      <select id="action" name="action" required>
-        <option value="encode">🔐 Encode</option>
-        <option value="decode">🔓 Decode</option>
-      </select>
+    <div class="form-box">
+      <form action="/process" method="POST">
+        <label for="text">Text:</label>
+        <textarea id="text" name="text" required placeholder="Enter text here..."></textarea>
+        
+        <label for="action">Choose Action:</label>
+        <select id="action" name="action" required>
+          <option value="encode">🔐 Encode</option>
+          <option value="decode">🔓 Decode</option>
+        </select>
 
-      <label for="type">Choose Encoding Type:</label>
-      <select id="type" name="type" required>
-        <option value="base64">Base64</option>
-      </select>
+        <label for="type">Choose Encoding Type:</label>
+        <select id="type" name="type" required>
+          <option value="base64">Base64</option>
+        </select>
 
-      <button type="submit">Submit</button>
-    </form>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
 
     <div class="result" id="result-container" style="display:none;">
       <h2>Result 📜:</h2>
