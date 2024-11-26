@@ -25,14 +25,10 @@ app.post('/process', (req, res) => {
     if (action === 'encode') {
       if (type === 'base64') {
         result = Buffer.from(text).toString('base64');
-      } else if (type === 'marshal') {
-        result = JSON.stringify(text); // Placeholder for Marshal encoding
       }
     } else if (action === 'decode') {
       if (type === 'base64') {
         result = Buffer.from(text, 'base64').toString('utf-8');
-      } else if (type === 'marshal') {
-        result = JSON.parse(text); // Placeholder for Marshal decoding
       }
     }
 
