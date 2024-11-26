@@ -1,0 +1,19 @@
+{
+  "name": "encode-decode-tool",
+  "version": "1.0.0",
+  "description": "A web-based tool to encode and decode text using Base64 and Marshal.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "vercel dev"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "ejs": "^3.1.8",
+    "body-parser": "^1.19.1"
+  },
+  "engines": {
+    "node": "16.x"
+  },
+  "license": "MIT"
+}
