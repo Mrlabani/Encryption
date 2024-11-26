@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Encode/Decode Tool</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Encode/Decode Tool</h1>
+    <form action="/process" method="POST">
+      <label for="text">Text:</label>
+      <textarea id="text" name="text" required></textarea>
+      
+      <label for="type">Choose Type:</label>
+      <select id="type" name="type" required>
+        <option value="base64">Base64</option>
+        <option value="marshal">Marshal (JSON Placeholder)</option>
+      </select>
+
+      <label for="action">Choose Action:</label>
+      <select id="action" name="action" required>
+        <option value="encode">Encode</option>
+        <option value="decode">Decode</option>
+      </select>
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <% if (result) { %>
+      <div class="result">
+        <h2>Result:</h2>
+        <textarea id="result" readonly><%= result %></textarea>
+        <button onclick="copyToClipboard()">Copy to Clipboard</button>
+      </div>
+    <% } %>
+
+    <% if (error) { %>
+      <div class="error">
+        <h2>Error:</h2>
+        <p><%= error %></p>
+      </div>
+    <% } %>
+  </div>
+
+  <script>
+    function copyToClipboard() {
+      const resultText = document.getElementById('result');
+      resultText.select();
+      document.execCommand('copy');
+    }
+  </script>
+</body>
+</html>
